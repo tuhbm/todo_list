@@ -1,27 +1,25 @@
 <template>
-  <li class="todo-item">
+<li class="todo-item">
     <div class="item-check">
-      <label for="item0" class="lab-check">
-        <input id="item0" class="chk-check" type="checkbox" />
+      <label :for="`item${todo.id}`" class="lab-check">
+        <input :id="`item${todo.id}`" class="chk-check" type="checkbox" />
       </label>
     </div>
     <div class="item-title">
-      <a href="" class="link-item">
-        <strong class="title"
-          >제목제목제목제목제목제목제목제목제목제목제목제목제목제목제목</strong
-        >
-      </a>
+      <router-link :to="`/detail/:${todo.id}`" class="link-item">
+        <strong class="title">{{todo.title}}</strong>
+      </router-link>
     </div>
     <div class="item-info">
-      <em class="info-subject">마감일</em>
-      <span class="info-content">2020.09.10</span>
+      <span class="info-content">{{todo.end_date}} 까지</span>
     </div>
-  </li>
+</li>
 </template>
 
 <script>
 export default {
-  name: "TodoItem"
+    name: 'TodoItem',
+    props: ['todo']
 };
 </script>
 
@@ -38,12 +36,20 @@ export default {
     border-top: 0;
   }
   .link-item {
-    display:block;
+    display: block;
     font-style: normal;
     text-decoration: none;
     color: black;
     font-size: 1em;
     padding: 1em 0;
+
+      .title {
+        display: inline-block;
+        width: 100%;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
   }
   em {
     font-style: normal;
@@ -63,11 +69,11 @@ export default {
     }
   }
   .item-title {
-    width:60%;
+    width: 70%;
     text-align: left;
   }
   .item-info {
-    width:30%;
+    width: 20%;
     padding: 1em 0;
     float: right;
   }
