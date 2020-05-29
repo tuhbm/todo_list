@@ -7,6 +7,7 @@
 
 <script>
 import { mapState } from 'vuex';
+// import Todo from './views/Todo';
 
 export default {
     name: 'App',
@@ -15,6 +16,10 @@ export default {
     }),
     computed: {
         ...mapState(['logo'])
+    },
+    mounted() {
+        console.log('this.$route>>', this.$route);
+        console.log('this.$route>>', this.$route.params);
     }
 };
 </script>
@@ -41,6 +46,7 @@ em {
     width: 15vw;
     vertical-align: bottom;
 }
+.link-menu{}
 
 @mixin full-btns($color) {
     &:link,
@@ -73,7 +79,7 @@ em {
         transform: translateX(-50%) translateY(-50%);
     }
 }
-a.link-full {
+.link-full, {
     &.primary {
         @include full-btns(#d2002d);
     }
@@ -85,8 +91,8 @@ a.link-full {
     }
 
 }
-a.link-full:link:after,
-a.link-full:visited:after {
+.link-full:link:after,
+.link-full:visited:after {
     content: "";
     position: absolute;
     height: 0%;
@@ -99,15 +105,15 @@ a.link-full:visited:after {
     -o-transition: all 0.75s ease 0s;
     transition: all 0.75s ease 0s;
 }
-a.link-full:link:hover, a.link-full:visited:hover {
+.link-full:link:hover, .link-full:visited:hover {
     color: #FFF;
     text-shadow: none;
 }
-a.link-full:link:hover:after, a.link-full:visited:hover:after {
+.link-full:link:hover:after, .link-full:visited:hover:after {
     height: 450%;
 }
 
-a.link-full.victoria:hover:after {
+.link-full:hover:after {
     height: 140%;
     opacity: 1;
 }
