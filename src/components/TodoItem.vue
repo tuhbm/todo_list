@@ -17,6 +17,7 @@
 </template>
 
 <script>
+// import {mapMutations} from 'vuex';
 export default {
     name: 'TodoItem',
     props: {
@@ -35,6 +36,11 @@ export default {
             } else {
                 return '';
             }
+        }
+    },
+    methods: {
+        isChecked() {
+            // return this.checkComplete.value === true;
         }
     }
 };

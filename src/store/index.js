@@ -1,7 +1,6 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
 import Logo from '../assets/taekyun.png';
-import moment from 'moment';
 
 Vue.use(Vuex);
 
@@ -38,15 +37,19 @@ export default new Vuex.Store({
             },
         ],
         nowTime: new Date().getTime(),
-        viewType: 'ALL',
-        moment: moment
+        viewType: 'ALL'
     },
     getters: {
         totalTodoList: state => state.todos,
         deadlineTodoList: state => state.todos.filter(todo => !todo.complete && todo.end_date && (new Date(todo.end_date).getTime() < state.nowTime)),
         completedTodoList: state => state.todos.filter(todo => todo.complete)
     },
-    mutations: {},
+    mutations: {
+        addTodoItem(state, payload){
+            console.log(state, payload);
+            state.todos.push(payload);
+        }
+    },
     actions: {},
     modules: {}
 });

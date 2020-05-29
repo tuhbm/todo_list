@@ -47,6 +47,9 @@ export default {
             this.todoList = this.completedTodoList;
             this.viewType = 'COMPLETE';
         }
+    },
+    mounted() {
+        console.log(this.totalTodoList);
     }
 };
 </script>
