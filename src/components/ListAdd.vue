@@ -3,7 +3,7 @@
         <div class="write-header">
             <input type="text" v-model="title" class="item-title" placeholder="제목을 입력하세요">
             <input type="date" v-model="endDate" class="item-date">
-            <select name="" id="" v-model="important" class="item-important">
+            <select name="" id="" v-model="importance" class="item-important">
                 <option value="1">중요</option>
                 <option value="2">보통</option>
                 <option value="3">여유</option>
@@ -32,8 +32,7 @@ export default {
             title: null,
             description: null,
             endDate: null,
-            important: null,
-            index: null,
+            importance: null,
             mode: 'add'
         };
     },
@@ -45,9 +44,9 @@ export default {
                 title: this.title,
                 description: this.description,
                 endDate: this.endDate,
-                important: this.important
+                importance: this.importance
             };
-            this.$emit('listAdd', todoItem);
+            this.$store.dispatch('addTodo', todoItem);
             this.clearTodo();
         },
         listEdit() {
@@ -57,9 +56,9 @@ export default {
                 title: this.title,
                 description: this.description,
                 endDate: this.endDate,
-                important: this.important
+                importance: this.importance
             };
-            this.$emit('listEdit', todoItem, this.index);
+            this.$store.commit('editTodo', todoItem);
             this.clearTodo();
             this.mode = 'add';
         },
@@ -68,22 +67,22 @@ export default {
             this.title = null;
             this.description = null;
             this.endDate = null;
-            this.important = null;
+            this.importance = null;
         },
         checkTodo() {
-            if (this.title === null || this.description === null || this.endDate === null || this.important === null) {
+            if (this.title === null || this.description === null || this.endDate === null || this.importance === null) {
                 alert('할일을 입력해주세요.');
             }
         }
     },
     created() {
-        eventBus.$on('listEdit', (todo, index) => {
+        eventBus.$on('listEdit', todo => {
             this.id = todo.id;
             this.title = todo.title;
             this.description = todo.description;
             this.endDate = todo.endDate;
-            this.important = todo.important;
-            this.index = index;
+            this.importance = todo.importance;
+            // this.index = index;
             this.mode = 'edit';
         });
     }
