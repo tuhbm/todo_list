@@ -8,8 +8,8 @@
         <div class="todo-content">
             <div class="case-list">
                 <List
-                :todoList="todoList"
-                @statusControl="statusControl"
+                :todoList="this.todoList"
+                @doneControl="doneControl"
                 @listDelete="listDelete"
                 />
             </div>
@@ -35,14 +35,39 @@ export default {
     },
     data() {
         return {
-            todoList: []
+            todoList: [
+                {
+                    id: 'aaa',
+                    importance: 1,
+                    title: '예시 제목111111111',
+                    description: '내용입니다1111111111.ㅎㅎㅎㅎㅎㅎㅎㅎㅎㅎㅎ',
+                    endDate: '2020-06-11',
+                    done: false,
+                },
+                {
+                    id: 'bbb',
+                    importance: 2,
+                    title: '예시 제목2222222222',
+                    description: '내용입니다2222222222.ㅎㅎㅎㅎㅎㅎㅎㅎㅎㅎㅎ',
+                    endDate: '2020-05-22',
+                    done: true,
+                },
+                {
+                    id: 'ccc',
+                    importance: 3,
+                    title: '예시 제목333333333',
+                    description: '내용입니다333333333.ㅎㅎㅎㅎㅎㅎㅎㅎㅎㅎㅎ',
+                    endDate: '2020-05-27',
+                    done: false,
+                },
+            ]
         };
     },
     computed: {
         countDone() {
             let count = 0;
             this.todoList.forEach(list => {
-                if (list.status === 'done') {
+                if (list.done === true) {
                     count++;
                 }
             });
@@ -52,16 +77,27 @@ export default {
     methods: {
         listAdd(todo) {
             console.log('Todo add!');
-            this.todoList.push({ todo: todo, status: 'created' });
+            this.todoList.push({
+                id: todo.id,
+                title: todo.title,
+                description: todo.description,
+                endDate: todo.endDate,
+                important: todo.important,
+                done: false
+            });
         },
-        statusControl(index, status) {
-            this.todoList[index].status = status;
+        doneControl(index, status) {
+            this.todoList[index].done = status;
         },
         listDelete(index) {
             this.todoList.splice(index, 1);
         },
         listEdit(todo, index) {
-            this.todoList[index].todo = todo;
+            this.todoList[index].id = todo.id;
+            this.todoList[index].title = todo.title;
+            this.todoList[index].description = todo.description;
+            this.todoList[index].endDate = todo.endDate;
+            this.todoList[index].important = todo.important;
         }
     },
     created() {
@@ -90,7 +126,7 @@ export default {
         float: left;
         box-sizing: border-box;
         width: 50%;
-        min-height: 10vh;
+        min-height: 20vh;
         padding: 0.3vw;
         border-right: 0.2vw solid #000;
     }

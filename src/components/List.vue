@@ -2,21 +2,24 @@
   <ul>
     <li
       class="pa-3 mb-3"
-      :class="{'done': list.status === 'done'}"
-      v-for="(list, index) in todoList"
+      :class="{'done': todo.done === true}"
+      v-for="(todo, index) in todoList"
       :key="index"
     >
-      <p>{{list.todo}}</p>
-      <button v-if="list.status === 'created'" @click="$emit('statusControl', index, 'done')">
+      <strong>{{todo.title}}</strong>
+      <span v-html="changeImportant(todo.important)"></span>
+      <span>{{todo.endDate}}</span>
+      <p>{{todo.description}}</p>
+      <button v-if="!todo.done" @click="$emit('doneControl', index, true)">
         완료
       </button>
-      <button v-else @click="$emit('statusControl', index, 'created')">
+      <button v-else @click="$emit('doneControl', index, false)">
         미완료
       </button>
       <button @click="$emit('listDelete', index)">
         삭제
       </button>
-      <button @click="listEdit(list.todo, index)" v-if="list.status === 'created'">
+      <button @click="listEdit(todo, index)" v-if="todo.status === 'created'">
         수정
       </button>
     </li>
@@ -35,6 +38,15 @@ export default {
     methods: {
         listEdit(todo, index) {
             eventBus.listEdit(todo, index);
+        },
+        changeImportant(importantValue) {
+            if (importantValue === 1) {
+                return '중요';
+            } else if (importantValue === 2) {
+                return '보통';
+            } else {
+                return '여유';
+            }
         }
     }
 };

@@ -1,20 +1,24 @@
 <template>
-    <div>
-        <input type="text" class="item-title" placeholder="제목을 입력하세요">
-        <input type="date" class="item-date">
-        <select name="" id="" class="item-important">
-            <option value="1">중요</option>
-            <option value="2">보통</option>
-            <option value="3">여유</option>
-        </select>
-        <textarea
-            class="item-content"
-            v-model="todo"
-            placeholder="투두리스트를 입력해주세요."
-            value=""
-        ></textarea>
-        <button v-if="mode === 'add'" @click="listAdd">리스트 추가</button>
-        <button v-else @click="listEdit">리스트 수정</button>
+    <div class="write-container">
+        <div class="write-header">
+            <input type="text" v-model="title" class="item-title" placeholder="제목을 입력하세요">
+            <input type="date" v-model="endDate" class="item-date">
+            <select name="" id="" v-model="important" class="item-important">
+                <option value="1">중요</option>
+                <option value="2">보통</option>
+                <option value="3">여유</option>
+            </select>
+        </div>
+        <div class="write-content">
+            <textarea
+                    class="item-content"
+                    v-model="description"
+                    placeholder="투두리스트를 입력해주세요."
+                    value=""
+            ></textarea>
+            <button v-if="mode === 'add'" @click="listAdd">리스트 추가</button>
+            <button v-else @click="listEdit">리스트 수정</button>
+        </div>
     </div>
 </template>
 
@@ -23,33 +27,62 @@ import { eventBus } from '../main';
 export default {
     data() {
         return {
+            id: null,
             todo: null,
+            title: null,
+            description: null,
+            endDate: null,
+            important: null,
             index: null,
             mode: 'add'
         };
     },
     methods: {
         listAdd() {
-            if (this.todo === null) {
-                alert('할일을 입력해주세요.');
-            } else {
-                this.$emit('listAdd', this.todo);
-                this.todo = null;
-            }
+            this.checkTodo();
+            let todoItem = {
+                id: new Date().getTime(),
+                title: this.title,
+                description: this.description,
+                endDate: this.endDate,
+                important: this.important
+            };
+            this.$emit('listAdd', todoItem);
+            this.clearTodo();
         },
         listEdit() {
-            if (this.todo === null) {
+            this.checkTodo();
+            let todoItem = {
+                id: this.id,
+                title: this.title,
+                description: this.description,
+                endDate: this.endDate,
+                important: this.important
+            };
+            this.$emit('listEdit', todoItem, this.index);
+            this.clearTodo();
+            this.mode = 'add';
+        },
+        clearTodo() {
+            this.id = null;
+            this.title = null;
+            this.description = null;
+            this.endDate = null;
+            this.important = null;
+        },
+        checkTodo() {
+            if (this.title === null || this.description === null || this.endDate === null || this.important === null) {
                 alert('할일을 입력해주세요.');
-            } else {
-                this.$emit('listEdit', this.todo, this.index);
-                this.todo = null;
-                this.mode = 'add';
             }
         }
     },
     created() {
         eventBus.$on('listEdit', (todo, index) => {
-            this.todo = todo;
+            this.id = todo.id;
+            this.title = todo.title;
+            this.description = todo.description;
+            this.endDate = todo.endDate;
+            this.important = todo.important;
             this.index = index;
             this.mode = 'edit';
         });
