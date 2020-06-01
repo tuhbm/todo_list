@@ -10,65 +10,51 @@ export default new Vuex.Store({
         todoList: [
             {
                 id: 1590990043437,
-                importance: 1,
-                title: '예시 제목111111111',
-                description: '내용입니다1111111111.ㅎㅎㅎㅎㅎㅎㅎㅎㅎㅎㅎ',
+                importance: 3,
+                title: '장보기',
+                description: '파 한단, 라면, 계란 한판',
                 endDate: '2020-06-11',
                 done: false,
             },
             {
                 id: 1590990073951,
-                importance: 2,
-                title: '예시 제목2222222222',
-                description: '내용입니다2222222222.ㅎㅎㅎㅎㅎㅎㅎㅎㅎㅎㅎ',
+                importance: 1,
+                title: '옷 구매하기',
+                description: '무신사에서 장바구니에 있는 옷 구매',
                 endDate: '2020-05-22',
                 done: true,
             },
             {
                 id: 1590970073957,
-                importance: 3,
-                title: '예시 제목333333333',
-                description: '내용입니다333333333.ㅎㅎㅎㅎㅎㅎㅎㅎㅎㅎㅎ',
+                importance: 1,
+                title: '은행가기',
+                description: '주식계좌 생성, 적금가입',
                 endDate: '2020-05-27',
                 done: false,
             },
         ]
     },
     getters: {
+        logo: state => state.logo,
         totalTodoList: state => state.todoList,
-        countDone: state => {
-            let count = 0;
-            state.todoList.forEach(list => {
-                if (list.done === true) {
-                    count++;
-                }
-            });
-            return count;
-        }
+        countDone: state => state.todoList.filter(todo => todo.done).length
     },
     mutations: {
         addTodo: (state, payload) => state.todoList.push(payload),
         deleteTodo: (state, payload) => {
-            const findItemIndex = state.todoList.findIndex(todo => todo.id === payload);
-            state.todoList.splice(findItemIndex, 1);
-            console.log(state.todoList);
+            state.todoList = state.todoList.filter(todo => todo.id !== payload);
         },
         doneTodo: (state, payload) => {
-            const findItem = state.todoList.filter(item => item.id === payload);
-            console.log(findItem);
-            findItem[0].done = !findItem[0].done;
-            console.log(findItem);
+            const findItem = state.todoList.find(item => item.id === payload);
+            findItem.done = !findItem.done;
         },
         editTodo: (state, payload) => {
-            const findItem = state.todoList.filter(item => item.id === payload.id);
-            console.log(findItem);
-            findItem[0].title = payload.title;
-            findItem[0].description = payload.description;
-            findItem[0].endDate = payload.endDate;
-            findItem[0].importance = payload.importance;
-            findItem[0].done = payload.done;
-            console.log(findItem);
-            console.log(state.todoList);
+            const findItem = state.todoList.find(item => item.id === payload.id);
+            findItem.title = payload.title;
+            findItem.description = payload.description;
+            findItem.endDate = payload.endDate;
+            findItem.importance = payload.importance;
+            findItem.done = payload.done;
         }
     },
     actions: {
