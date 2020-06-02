@@ -14,16 +14,16 @@
             </div>
             <div class="item-body">
                 <p class="item-description">{{todo.description}}</p>
-                <button class="btn-filter" v-if="todo.done" @click="toggleDone(todo.id)">
+                <button class="btn-design" v-if="todo.done" @click="toggleDone(todo.id)">
                     미완료
                 </button>
-                <button class="btn-filter" v-else @click="toggleDone(todo.id)">
+                <button class="btn-design" v-else @click="toggleDone(todo.id)">
                     완료
                 </button>
-                <button class="btn-filter" @click="todoDelete(todo.id)">
+                <button class="btn-design" @click="todoDelete(todo.id)">
                     삭제
                 </button>
-                <button class="btn-filter" @click="todoEdit(todo)" v-if="!todo.done">
+                <button class="btn-design" @click="todoEdit(todo)" v-if="!todo.done">
                     수정
                 </button>
             </div>
@@ -69,18 +69,15 @@ export default {
 </script>
 
 <style>
-
 .list-todo li {
     width: 100%;
-    border-bottom: 0.1vw solid #ddd;
+    border-bottom: 0.1vw solid #706d73;
     margin-bottom: 0.5vw
 }
-
 .list-todo li:last-child {
     border-bottom: 0;
     margin-bottom: 0;
 }
-
 .item-header {
     overflow: hidden;
     padding: 0.5vw;
@@ -88,19 +85,28 @@ export default {
 .item-body{
     padding: 0 0.5vw;
 }
-
 .item-title {
     float: left;
+    font-weight: normal;
+    font-size: 1.3vw;
+    padding: 1vw 1vw 1vw 0;
 }
-
 .item-info {
     float: right;
 }
-
+.item-importance,
+.item-end {
+    font-size: 1vw;
+    color: #706d73;
+    padding: 0.5vw;
+}
 .item-end {
     display: block;
 }
-.btn-filter {
+.item-description {
+    font-size: 1vw;
+}
+.btn-design {
     box-shadow: inset 0 1px 0 0 #97c4fe;
     background: #3d94f6 linear-gradient(to bottom, #3d94f6 5%, #1e62d0 100%);
     border-radius: 6px;
@@ -115,28 +121,13 @@ export default {
     text-shadow: 0 1px 0 #1570cd;
     margin: 0.5vw 0.5vw 0.5vw 0;
 }
-.btn-filter:hover {
+.btn-design:hover {
     background: #1e62d0 linear-gradient(to bottom, #1e62d0 5%, #3d94f6 100%);
 }
-.btn-filter:active {
+.btn-design:active {
     position: relative;
     top: 1px;
 }
-.item-title {
-    font-weight: normal;
-    font-size: 1.3vw;
-    padding: 1vw;
-}
-.item-description {
-    font-size: 1vw;
-}
-.item-importance,
-.item-end {
-    font-size: 1vw;
-    color: #706d73;
-    padding: 1vw;
-}
-
 .done {
     background-color: rgb(141, 255, 135);
 }
@@ -156,5 +147,4 @@ export default {
 .deadline .item-end{
     color: #e6ff00;
 }
-
 </style>

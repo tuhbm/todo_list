@@ -46,7 +46,6 @@ div, p, ul, li, h1, h2, span, button, select, input {
     padding: 0;
     margin: 0;
 }
-
 ul, li {
     list-style: none;
 }
@@ -58,25 +57,23 @@ ul, li {
 }
 .todo-header {
     text-align: center;
-    border-bottom: 0.1vw solid #000;
+    padding-bottom: 1vw;
+    border-bottom: 0.1vw solid #706d73;
 }
-
 .todo-content {
     overflow: hidden;
     margin-top: 1vw;
     text-align:left;
-    border: 0.1vw solid #000;
+    border: 0.1vw solid #706d73;
 }
-
 .todo-content .case-list {
     float: left;
     box-sizing: border-box;
     width: 50%;
     min-height: 20vh;
     padding: 0.3vw;
-    border-right: 0.1vw solid #000;
+    border-right: 0.1vw solid #706d73;
 }
-
 .todo-content .case-write {
     float: right;
     box-sizing: border-box;

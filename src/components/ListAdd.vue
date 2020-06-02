@@ -15,8 +15,8 @@
                 v-model="description"
                 placeholder="할일을 입력해주세요."
             ></textarea>
-            <button class="btn-filter" v-if="mode === 'add'" @click="listAdd">리스트 추가</button>
-            <button class="btn-filter" v-else @click="listEdit">리스트 수정</button>
+            <button class="btn-design" v-if="mode === 'add'" @click="listAdd">리스트 추가</button>
+            <button class="btn-design" v-else @click="listEdit">리스트 수정</button>
         </div>
     </div>
 </template>
@@ -111,7 +111,6 @@ export default {
 .inp-important{
     height: 1.8vw;
     font-size: 1vw;
-
 }
 .inp-title,
 .inp-date,
