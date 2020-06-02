@@ -60,9 +60,9 @@ export default {
             return this.$options.importance.find(item => item.value === Number(importantValue)).text;
         },
         isEnd(todo) {
-            console.log('endDate>>>', todo.endDate);
             const nowTime = new Date().getTime();
-            return !todo.done &&(new Date(todo.endDate).getTime() < nowTime);
+            const todoEndDate = new Date(todo.endDate).getTime();
+            return !todo.done && (todoEndDate < nowTime);
         }
     }
 };

@@ -97,26 +97,28 @@ export default {
 </script>
 <style>
 .inp-title {
-    display:inline-block;
     width: 45%;
     height: 1.5vw;
     margin-right: 1vw;
-    vertical-align: middle;
     font-size: 1.2vw;
 }
 .inp-date{
-    display:inline-block;
     width: 20%;
     height: 1.5vw;
     margin-right: 1vw;
-    vertical-align: middle;
     font-size: 1vw;
 }
 .inp-important{
-    display:inline-block;
     height: 1.8vw;
+    font-size: 1vw;
+
+}
+.inp-title,
+.inp-date,
+.inp-important{
+    display:inline-block;
+    border: 0.1vw solid #706d73;
     vertical-align: middle;
-    font-size: 1.2vw;
 }
 .write-content{
     margin-top: 1vw;
