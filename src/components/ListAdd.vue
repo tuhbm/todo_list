@@ -1,9 +1,9 @@
 <template>
     <div class="write-container">
         <div class="write-header">
-            <input type="text" v-model="title" class="item-title" placeholder="제목을 입력하세요">
-            <input type="date" v-model="endDate" class="item-date">
-            <select v-model="importance" class="item-important">
+            <input type="text" v-model="title" class="inp-title" placeholder="제목을 입력하세요">
+            <input type="date" v-model="endDate" class="inp-date">
+            <select v-model="importance" class="inp-important">
                 <option value="1">중요</option>
                 <option value="2">보통</option>
                 <option value="3">여유</option>
@@ -11,7 +11,7 @@
         </div>
         <div class="write-content">
             <textarea
-                class="item-content"
+                class="inp-content"
                 v-model="description"
                 placeholder="할일을 입력해주세요."
             ></textarea>
@@ -96,27 +96,36 @@ export default {
 };
 </script>
 <style>
-.item-title {
-    width: 50%;
-    height: 1.5vw;
-    margin-right: 1vw;
-}
-.item-date{
+.inp-title {
     display:inline-block;
-    margin-right: 1vw;
+    width: 45%;
     height: 1.5vw;
+    margin-right: 1vw;
+    vertical-align: middle;
+    font-size: 1.2vw;
 }
-.item-important{
+.inp-date{
+    display:inline-block;
+    width: 20%;
+    height: 1.5vw;
+    margin-right: 1vw;
+    vertical-align: middle;
+    font-size: 1vw;
+}
+.inp-important{
+    display:inline-block;
     height: 1.8vw;
+    vertical-align: middle;
+    font-size: 1.2vw;
 }
 .write-content{
     margin-top: 1vw;
 }
-.item-content {
+.inp-content {
     display: block;
     box-sizing: border-box;
     width: 100%;
-    min-height: 3vw;
+    min-height: 5vw;
     border: 0.1vw solid #706d73;
     resize: none
 }

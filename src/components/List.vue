@@ -1,9 +1,9 @@
 <template>
     <ul class="list-todo">
         <li
-            :class="{'done': todo.done}"
-            v-for="(todo, index) in todoList"
-            :key="index"
+            :class="{'done': todo.done, 'deadline' : isEnd(todo)}"
+            v-for="todo in todoList"
+            :key="todo.id"
         >
             <div class="item-header">
                 <strong class="item-title">{{todo.title}}</strong>
@@ -20,10 +20,10 @@
                 <button class="btn-filter" v-else @click="toggleDone(todo.id)">
                     완료
                 </button>
-                <button class="btn-filter" @click="listDelete(todo.id)">
+                <button class="btn-filter" @click="todoDelete(todo.id)">
                     삭제
                 </button>
-                <button class="btn-filter" @click="listEdit(todo)" v-if="!todo.done">
+                <button class="btn-filter" @click="todoEdit(todo)" v-if="!todo.done">
                     수정
                 </button>
             </div>
@@ -50,14 +50,19 @@ export default {
         toggleDone(id) {
             this.$store.dispatch('doneTodo', id);
         },
-        listDelete(id) {
+        todoDelete(id) {
             this.$store.dispatch('deleteTodo', id);
         },
-        listEdit(todo) {
+        todoEdit(todo) {
             eventBus.listEdit(todo);
         },
         changeImportant(importantValue) {
             return this.$options.importance.find(item => item.value === Number(importantValue)).text;
+        },
+        isEnd(todo) {
+            console.log('endDate>>>', todo.endDate);
+            const nowTime = new Date().getTime();
+            return !todo.done &&(new Date(todo.endDate).getTime() < nowTime);
         }
     }
 };
@@ -81,7 +86,7 @@ export default {
     padding: 0.5vw;
 }
 .item-body{
-    padding: 0.5vw;
+    padding: 0 0.5vw;
 }
 
 .item-title {
@@ -117,25 +122,39 @@ export default {
     position: relative;
     top: 1px;
 }
-.item-title{
+.item-title {
     font-weight: normal;
     font-size: 1.3vw;
+    padding: 1vw;
+}
+.item-description {
+    font-size: 1vw;
 }
 .item-importance,
 .item-end {
     font-size: 1vw;
     color: #706d73;
+    padding: 1vw;
 }
 
 .done {
     background-color: rgb(141, 255, 135);
 }
-
 .done .item-title,
 .done .item-description,
 .done .item-importance,
 .done .item-end{
     text-decoration: line-through;
-    color: rgba(0, 0, 0, 0.5);
+    color: #373db3;
 }
+.deadline {
+    background-color: #f65c5c;
+}
+.deadline .item-title,
+.deadline .item-description,
+.deadline .item-importance,
+.deadline .item-end{
+    color: #e6ff00;
+}
+
 </style>
